@@ -1,6 +1,5 @@
 package com.shop.Entity;
 
-
 import com.shop.constant.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,13 +8,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
-@Table(name = "shop_member")
+@Getter @Setter
+@Table(name="shop_member")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "member_id")
+    @Column(name="member_id")
     private Long id;
 
     @Column(unique = true)
@@ -31,4 +29,5 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
 }
