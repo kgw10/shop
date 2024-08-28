@@ -1,6 +1,7 @@
 package com.shop.Dto;
 
 
+import com.shop.constant.ItemCategory;
 import com.shop.constant.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,7 @@ public class ItemForm {
     @NotBlank(message="재고는 필수 입력입니다.")
     private Integer itemDetail;
 
+    private ItemCategory itemCategory;
     private ItemSellStatus itemSellStatus;
 
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>();
