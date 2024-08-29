@@ -23,7 +23,7 @@
             </div>
             <div class="carousel-inner">
 
-                <div style="height:50vw;" class="carousel-item" th:each="row : ${slideImg}" th:classappend="${stat.index==0 ? 'active': ''}">
+                <div style="height:50vw;" class="carousel-item" th:each="row,stat : ${slideImg}" th:classappend="${stat.index==0 ? 'active': ''}">
                     <img th:src="${row.imgUrl}" style="height:50vw;" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-none d-md-block">
                         <h5 th:text="'#'+${row.id}"></h5>
