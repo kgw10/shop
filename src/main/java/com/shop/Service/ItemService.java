@@ -100,7 +100,7 @@ public class ItemService {
 
     // 메인 페이지와 상품 상세 페이지에 사용되는 내용
     private ItemForm getItem(Item item){
-        List<ItemImg> itemImgList = ItemImgRepository.findByItemIdOrderByIdAsc(item.getId());
+        List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(item.getId());
         List<ItemImgDto> itemImgDtos = new ArrayList<>();
         for(ItemImg itemImg : itemImgList) {
             itemImgDtos.add( ItemImgDto.of(itemImg));   // 이미지 entity -> DTO
