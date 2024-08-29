@@ -1,12 +1,15 @@
 package com.shop.Service;
 
 import com.shop.Dto.ItemForm;
+import com.shop.Dto.ItemImgDto;
 import com.shop.Dto.MainSlideImg;
 import com.shop.Entity.Item;
 import com.shop.Entity.ItemImg;
 import com.shop.Repository.ItemImgRepository;
 import com.shop.Repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -82,5 +85,28 @@ public class ItemService {
 
     // 메인 페이지 보여줄 상품 8개 선택하기 위한 메서드
     public List<ItemForm> getMainItems() {
+        List<ItemForm> itemFormList = new ArrayList<>();
+
+        // 최근 등록된 상품 8개 가져오기 - query문 만들어서 하는 방법과 메서드로 하는 방법
+        Pageable pageable =  PageRequest.of(0, 8);
+        List<Item> itemList = itemRepository.findAllByOrderByRegTimeDesc( pageable);
+
+        for( Item item : itemList) {
+            ItemForm itemForm = getItem(item);
+            itemFormList.add(itemForm);
+        }
+        return itemFormList;
+    }
+
+    // 메인 페이지와 상품 상세 페이지에 사용되는 내용
+    private ItemForm getItem(Item item){
+        List<ItemImg> itemImgList = ItemImgRepository.findByItemIdOrderByIdAsc(item.getId());
+        List<ItemImgDto> itemImgDtos = new ArrayList<>();
+        for(ItemImg itemImg : itemImgList) {
+            itemImgDtos.add( ItemImgDto.of(itemImg));   // 이미지 entity -> DTO
+        }
+        ItemForm itemForm = ItemForm.of(item);
+        itemForm.setItemImgDtoList(itemImgDtos);    // 이미지 리스트 상품Dto에 저장
+        return itemForm;
     }
 }
