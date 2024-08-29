@@ -1,6 +1,5 @@
 package com.shop.Entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,10 +8,9 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
-public class ItemImg {
-
+public class ItemImg extends Base{
     @Id
-    @Column(name="m")
+    @Column(name="item_img_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String imgName;
@@ -20,9 +18,7 @@ public class ItemImg {
     private String originalName;
     private String repImgYn;
 
-
     @ManyToOne
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name="item_id")
     private Item item;
-
 }

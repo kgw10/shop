@@ -1,10 +1,21 @@
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layout}">
 
 <th:block layout:fragment="css"></th:block>
-<th:block layout:fragment="script"></th:block>
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+    $(function(){
+        var errorMsg = [[${errorMsg}]];
+        if(errorMsg != null){
+            alert(errorMsg);
+        }
+    });
+  </script>
+
+</th:block>
 
 <div layout:fragment="body">
   <h2>상품 등록</h2>
@@ -23,10 +34,10 @@
     <div class="input-group mb-3">
       <label class="input-group-text" th:for="itemCategory">상품상태</label>
       <select class="form-select" th:field="*{itemCategory}">
-        <option value="PANTS"> 바지 </option>
+        <option value="PANTS">바지</option>
         <option value="TOP">상의</option>
-        <option value="OUTER"> 아우터 </option>
-        <option value="SHOES"> 신발 </option>
+        <option value="OUTER">아우터</option>
+        <option value="SHOES">신발</option>
       </select>
     </div>
 

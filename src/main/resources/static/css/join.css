@@ -148,3 +148,7 @@
 #joinForm .joinBt{
     margin-top:50px;
 }
+#joinForm .fieldError{
+    color:red;
+    padding-left:50px;
+}
