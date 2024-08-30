@@ -24,7 +24,7 @@ public class ItemForm {
     @NotNull(message = "가격은 필수 입력 입니다.")
     private Integer price;
 
-    @NotNull (message="재고는 필수 입력입니다.")
+    @NotNull(message="재고는 필수 입력입니다.")
     private Integer stock;
 
     @NotBlank(message = "상품상세 내용은 필수입니다.")

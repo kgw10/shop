@@ -48,11 +48,10 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-
     // 상품 수정
     @GetMapping("/update/{id}")
-    public String updatePage(@PathVariable long id, Model model){
-        model.addAttribute("itemForm", itemService.getItem(id));
+    public String updatePage(@PathVariable Long id, Model model){
+        model.addAttribute("itemForm", itemService.getItem(id) );
         return "admin/itemForm";
     }
 }
