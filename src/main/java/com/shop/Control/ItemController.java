@@ -30,12 +30,12 @@ public class ItemController {
         return "item/list";
     }
 
-    // 상품 상세 페이지 요청 /item/detail/상품번호
+    //상품 상세 페이지 요청   /item/detail/상품번호
     @GetMapping("/detail/{itemId}")
-    public String detail(@PathVariable("itemId") Long itemId, Model model) {
-
-        ItemForm itemForm = itemService.getItem(itemId);
-
+    public String detail(@PathVariable("itemId") Long itemId,
+                         Model model){
+        ItemForm itemForm = itemService.getItem( itemId);
+        model.addAttribute("item", itemForm);
         return "item/detail";
     }
 }
