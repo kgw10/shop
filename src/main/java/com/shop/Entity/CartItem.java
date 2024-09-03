@@ -25,21 +25,22 @@ public class CartItem extends Base{
     @JoinColumn(name="cart_id")
     private Cart cart;
 
+    // 장바구니 추가시 기존 상품 수량 증가 위한 메서드
     public void addQuantity(int quantity) {
-
         this.quantity += quantity;
     }
 
-    public void updateQuantity(int quantity) {
+    // 장바구니 리스트에서 수량 변경시 적용 메서드
+    public void updateQuantity(int quantity){
         this.quantity = quantity;
     }
 
-    public static CartItem createCartItem( Cart cart, Item item, int quantity) {
+    // CartItem 객체 생성  - 로그인한 회원이 새로운 상품을 장바구니 에 넣을때
+    public static CartItem createCartItem( Cart cart, Item item, int quantity){
         CartItem cartItem = new CartItem();
         cartItem.setCart(cart);
-        cartItem.setItem(item);
-        cartItem.setQuantity(quantity);
-
+        cartItem.setItem( item);
+        cartItem.setQuantity( quantity );
         return cartItem;
     }
 
