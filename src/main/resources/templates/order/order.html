@@ -4,16 +4,21 @@
       layout:decorate="~{fragment/main}">
 <head>
   <meta charset="UTF-8">
+  <meta name="_csrf" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
   <title layout:fragment="title"></title>
 
   <th:block layout:fragment="css">
     <link rel="stylesheet" href="/css/order.css">
   </th:block>
+
   <th:block layout:fragment="script">
-    <script src="/js/order.js"></script>
+
   </th:block>
+
 </head>
 <div layout:fragment="main" id="main">
+  <script src="/js/order.js"></script>
   <div class="tab-menu">
     <a href="/cart/list" class="tab ">장바구니</a>
     <a href="/orderList" class="tab active">구매내역</a>
@@ -22,18 +27,19 @@
 
     <h2>주문 내역</h2>
 
-    <div class="order-section">
-      <h3 class="order-date"></h3>
+    <div th:each="order, stat : ${orders.getContent()}" class="order-section">
+      <h3 th:text="${#strings.substring(order.orderDate,0,10)}" class="order-date"></h3>
       <div class="order-items">
         <div class="order-item">
-          <div class="product-info">
-            <img src="" alt="상품 이미지">
+
+          <div th:each="item : ${order.orderItemDtoList}" class="product-info">
+            <img th:src="${item.imgUrl}" alt="상품 이미지">
             <div class="details">
-              <p class="product-name">상품명: <span></span></p>
+              <p class="product-name">상품명: <span th:text="${item.itemName}"></span></p>
               <div class="price-info">
-                <p>단가: <span></span></p>
-                <p>수량: <span></span></p>
-                <p class="total-price">결제 금액: <span></span></p>
+                <p>단가: <span th:text="${item.price}"></span></p>
+                <p>수량: <span th:text="${item.quantity}"></span></p>
+                <p class="total-price">결제 금액: <span th:text="${item.orderPrice}"></span></p>
               </div>
 
             </div>
@@ -41,11 +47,18 @@
 
         </div>
         <div class="delivery-info">
-          <p>배송 주소: <span></span></p>
-          <p>받는 사람: <span></span></p>
+          <p>배송 주소: <span th:text="${order.addr}"></span></p>
+          <p>받는 사람: <span th:text="${order.toName}"></span></p>
         </div>
       </div>
-      <button class="cancel-button">주문 취소</button>
+      <th:block th:if="${order.orderStatus == T(com.shop.constant.OrderStatus).ORDER}">
+
+        <button th:data-orderId="${order.orderId}" class="cancel-button">주문 취소</button>
+
+      </th:block>
+      <th:block th:if="${order.orderStatus == T(com.shop.constant.OrderStatus).CANCEL}">
+        <p> 취소 완료 </p>
+      </th:block>
     </div>
 
 
